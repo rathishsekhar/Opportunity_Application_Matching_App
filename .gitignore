@@ -1,24 +1,24 @@
 ## Ignore Python bytecode cache files
-*/__pycache__/
+*__pycache__/
 
 # Ignore environment-specific settings
-.env
+*.env
 
 # Ignore IDE and editor files
-.vscode/
-.idea/
+*.vscode/
+*.idea/
 
 # Ignore system-specific files
-.DS_Store
+*.DS_Store
 Thumbs.db
 
 # Ignore logs and temporary files
-*.log*.tmp
+*.log
+*.tmp
 
 # Ignore dvc files
 .dvc/
 .dvc.lock
-.dvcignore
 .dvc/config
 .dvc/cache/
 .dvc/cache.remote/
@@ -28,4 +28,6 @@ Thumbs.db
 .dvc/plots/
 .dvc/externals/
 
+# Ignore getter
+src/getter/*
 
