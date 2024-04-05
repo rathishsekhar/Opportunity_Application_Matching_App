@@ -28,6 +28,3 @@ Thumbs.db
 .dvc/plots/
 .dvc/externals/
 
-# Ignore getter
-src/getter/*
-
