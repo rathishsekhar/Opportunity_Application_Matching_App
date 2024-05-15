@@ -12,6 +12,7 @@ import streamlit.components.v1 as com
 import random
 import string
 import streamlit_scrollable_textbox as stx
+from sklearn.decomposition import PCA
 
 
 # Importing necessary resources
@@ -27,15 +28,12 @@ filepath = Path(os.path.realpath("")).resolve()
 os.chdir(filepath)
 
 # Importing necessary functions
-
 # Page configuration
 # Setting default page configuration
 default_page_config = {"page_title": "Candidate Job Matcher", "layout": "wide"}
 st.set_page_config(**default_page_config)
 
 # Main function
-
-
 def main():
     # Title
     st.title("Input Candidate Evaluation Details:")
@@ -601,7 +599,7 @@ def main():
         # save_data(df_data_dict, 'NewFileName')
 
         # Embedding the vector
-        model = 'bert'  # Change this to bert or distill bert
+        model = 'bert'  # Change this to bert or distill bert whenever required
 
         uid_column_name = 'ApplicationId'
         str_col = [x for x in can_column if x in str_column]
@@ -614,7 +612,8 @@ def main():
             df_data_dict, uid_column_name, str_col, bool_col, float_col, hugging_face_model_name)
         data_vector = list(can_bert_dict_hstack_df.values())[0]
         transformed_data_vector = data_vector.reshape((1, -1))
-
+        save_data(transformed_data_vector, 'rathish')
+        
         # Dimensionality reduction for hstack data
         # Gathering the pickle file which contains the pca.fit() for main data
         pca_fit_filename = "candidate_bert_pca_model" if model == 'bert' else "candidate_dbert_pca_model"
@@ -657,19 +656,17 @@ def main():
             job_category_name = display_data.iloc[0].at['JobCategoryName']
             description = display_data.iloc[0].at['ExternalDescription']
 
-            st.markdown("**Title**")
+            st.markdown("**Title**:")
             st.text(f'{job_category_name}: {title}')
 
-            st.markdown("**Description**")
+            st.markdown("**Description**:")
             st.write(brief_description, unsafe_allow_html=True)
-            if st.button("View Job", key=f'view_job_{k}'):
-                with st.container(height=300, border=True):
-                    st.markdown("**Title**")
-                    st.text(f'{job_category_name}: {title}')
-
-                    st.markdown("**Description**")
-                    st.write(brief_description, unsafe_allow_html=True)
-                    st.write(description, unsafe_allow_html=True)
+            with st.container(height=300, border=True):
+                st.markdown("**Title**")
+                st.text(f'{job_category_name}: {title}')
+                st.write(job_category_name, unsafe_allow_html = True)
+                st.write(brief_description, unsafe_allow_html=True)
+                st.write(description, unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
