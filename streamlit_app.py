@@ -1,19 +1,14 @@
-# streamlit_app/app.py
+# streamlit_app/streamlit_app.py
 
 # Importing packages
 import streamlit as st
 import numpy as np
 import pandas as pd
-import pickle
 from datetime import datetime
 from pathlib import Path
 import os
-import streamlit.components.v1 as com
 import random
 import string
-import streamlit_scrollable_textbox as stx
-from sklearn.decomposition import PCA
-
 
 # Importing necessary resources
 from resources.long_lists import *
@@ -421,7 +416,7 @@ def main():
     # Skills
     st.subheader("Skills")
     skills_number = st.slider(
-        "Please indicate the number of skills you will be providing", min_value=1, max_value=10, step=1)
+        "Please indicate the number of skills you will be providing", min_value=1, max_value=50, step=1)
 
     skills_scalevalue, skills_skills, skills_scalevaluename = [], [], []
     skills_scalevalue_dict = {'5': "Advanced", '4': "Expert",
@@ -594,9 +589,7 @@ def main():
         df_data_dict['ApplicationId'] = "".join(random.choice(
             string.ascii_lowercase) for i in range(22)) + "=="
 
-        # Gathering arguments for the modelbased_embedder function for Candidate columns
-        # Saving data - To be Deleted for debug only
-        # save_data(df_data_dict, 'NewFileName')
+        # Gathering arguments for the modelbased_embedder function for Candidate column
 
         # Embedding the vector
         model = 'bert'  # Change this to bert or distill bert whenever required
@@ -612,7 +605,6 @@ def main():
             df_data_dict, uid_column_name, str_col, bool_col, float_col, hugging_face_model_name)
         data_vector = list(can_bert_dict_hstack_df.values())[0]
         transformed_data_vector = data_vector.reshape((1, -1))
-        save_data(transformed_data_vector, 'rathish')
         
         # Dimensionality reduction for hstack data
         # Gathering the pickle file which contains the pca.fit() for main data

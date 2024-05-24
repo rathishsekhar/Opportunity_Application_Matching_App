@@ -1,19 +1,14 @@
-# streamlit_app/app.py
+# streamlit_app/app_local.py
 
 # Importing packages
 import streamlit as st
 import numpy as np
 import pandas as pd
-import pickle
 from datetime import datetime
 from pathlib import Path
 import os
-import streamlit.components.v1 as com
 import random
 import string
-import streamlit_scrollable_textbox as stx
-from sklearn.decomposition import PCA
-
 
 # Importing necessary resources
 from resources.long_lists import *
@@ -74,12 +69,8 @@ def main():
     for n in range(behaviorcriteria_number):
         st.write(f"Criteria {n+1}: Description - {behaviorcriteria_descriptions[n]}, Name - {behaviorcriteria_names[n]}, Required - {behaviorcriteria_requireds[n]}")
 
-    st.info("Click Verify after inputing all the data to check if the behavior criteria entered is valid", icon="ℹ️")
-    behaviorcriteria_button = st.button(
-        "Verify", key="behaviorcriteria_verify")
 
-    if (behaviorcriteria_button):
-        if any(behaviorcriteria_requireds):
+    if any([True if x=='true' else False for x in behaviorcriteria_requireds]):
             st.success("All the criteria are valid")
     else:
         st.warning(
@@ -115,12 +106,8 @@ def main():
     for n in range(motivationcriteria_number):
         st.write(f"Criteria {n+1}: Description - {motivationcriteria_descriptions[n]}, Name - {motivationcriteria_names[n]}, Required - {motivationcriteria_requireds[n]}")
 
-    st.info("Click Verify after inputing all the data to check if the motivation criteria entered is valid", icon="ℹ️")
-    motivationcriteria_button = st.button(
-        "Verify", key="motivationcriteria_verify")
-
-    if (motivationcriteria_button):
-        if any(motivationcriteria_requireds):
+    
+    if any([True if x == 'true' else False for x in motivationcriteria_requireds]):
             st.success("All the criteria are valid")
     else:
         st.warning(
@@ -159,13 +146,9 @@ def main():
     # Displaying the inputed data
     for n in range(educationcriteria_number):
         st.write(f"Criteria {n+1}: Related - {educationcriteria_relateds[n]}, Degrees - {educationcriteria_degrees[n]}, Majors - {educationcriteria_majors[n]}, Requireds - {educationcriteria_requireds[n]}")
-
-    st.info("Click Verify after inputing all the data to check if the education criteria entered is valid", icon="ℹ️")
-    educationcriteria_button = st.button(
-        "Verify", key="educationcriteria_verify")
-
-    if (educationcriteria_button):
-        if any(educationcriteria_requireds):
+    
+    # true verification
+    if any([True if x == 'true' else False for x in educationcriteria_requireds]):
             st.success("All the criteria are valid")
     else:
         st.warning(
@@ -258,11 +241,8 @@ def main():
     for n in range(skillcriteria_number):
         st.write(f"Criteria {n+1}: Name - {skillcriteria_names[n]}, MinimumScaleValue - {skillcriteria_minimumscalevalues[n]},   Required - {skillcriteria_requireds[n]}")
 
-    st.info("Click Verify after inputing all the data to check if the skills criteria entered is valid", icon="ℹ️")
-    skillcriteria_button = st.button("Verify", key="skillcriteria_verify")
-
-    if (skillcriteria_button):
-        if any(skillcriteria_requireds):
+    # true verification
+    if any([True if x == 'true' else False for x in skillcriteria_requireds]):
             st.success("All the criteria are valid")
     else:
         st.warning(
@@ -421,7 +401,7 @@ def main():
     # Skills
     st.subheader("Skills")
     skills_number = st.slider(
-        "Please indicate the number of skills you will be providing", min_value=1, max_value=10, step=1)
+        "Please indicate the number of skills you will be providing", min_value=1, max_value=50, step=1)
 
     skills_scalevalue, skills_skills, skills_scalevaluename = [], [], []
     skills_scalevalue_dict = {'5': "Advanced", '4': "Expert",
@@ -612,7 +592,7 @@ def main():
             df_data_dict, uid_column_name, str_col, bool_col, float_col, hugging_face_model_name)
         data_vector = list(can_bert_dict_hstack_df.values())[0]
         transformed_data_vector = data_vector.reshape((1, -1))
-        save_data(transformed_data_vector, 'rathish')
+        
         
         # Dimensionality reduction for hstack data
         # Gathering the pickle file which contains the pca.fit() for main data
