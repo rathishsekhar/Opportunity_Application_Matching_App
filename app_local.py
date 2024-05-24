@@ -566,7 +566,6 @@ def main():
         df_data_dict[col__trnsfrmrpp] = df_data_dict[col__trnsfrmrpp].replace({'None': ''})
         df_data_dict[col__pp] = df_data_dict[col__pp].replace({'None': ''})
 
-
         # Imputing Tag data's NaN values with -1
         df_data_dict['Tag'].fillna(-1, inplace=True)
 
@@ -592,7 +591,6 @@ def main():
             df_data_dict, uid_column_name, str_col, bool_col, float_col, hugging_face_model_name)
         data_vector = list(can_bert_dict_hstack_df.values())[0]
         transformed_data_vector = data_vector.reshape((1, -1))
-        
         
         # Dimensionality reduction for hstack data
         # Gathering the pickle file which contains the pca.fit() for main data
