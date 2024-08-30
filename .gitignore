@@ -2,7 +2,7 @@
 *__pycache__/
 
 # Ignore environment-specific settings
-*.env
+app_env/
 
 # Ignore IDE and editor files
 *.vscode/
@@ -28,3 +28,5 @@ Thumbs.db
 .dvc/plots/
 .dvc/externals/
 
+# Ignore .json
+*.json
