@@ -5,7 +5,6 @@ import pandas as pd
 import pickle
 import os 
 from pathlib import Path
-import streamlit as st
 
 def get_data(file_name):
     """
