@@ -3,10 +3,15 @@
 # Importing libraries
 
 import numpy as np
+import nltk
+
+nltk.download('punkt')
+nltk.download('stopwords')
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import re
+
 
 
 def dataextractor(data, col_names):
@@ -116,28 +121,3 @@ def preprocessing_w2v(ls, stemming = True):
         sentence =  ' '.join([stemmer.stem(words) for words in tkns])
         
     return sentence
-
-def preprocessing_transformermodels(ls):
-    """
-    Preprocesses the text by doing the following: 
-    1. Removes HTML tags 
-    2. Converts text to lower case 
-  
-    Args:
-    ls (text): Input text for preprocessing
-    
-    Returns: 
-    text (str): Preprocessed text for further use
-    """
-
-    # Taking care of values other than string that may come across
-
-    text = str(ls)
-    
-    #removing html_text
-
-    text = re.sub(r'<.*?>', '', text)
-    text = re.sub(r'[\n | \t]', " ", text)
-    text = re.sub(r"  ", " ", text)
-
-    return text

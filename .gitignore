@@ -1,8 +1,11 @@
-## Ignore Python bytecode cache files
+# Ignore Python bytecode cache files
 *__pycache__/
 
 # Ignore environment-specific settings
 app_env/
+
+# Ignore src/getter/*
+/src/getter/*
 
 # Ignore IDE and editor files
 *.vscode/
